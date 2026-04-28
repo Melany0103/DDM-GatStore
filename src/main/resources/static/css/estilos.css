@@ -1,0 +1,194 @@
+
+:root {
+    --primary-orange: #ff8c00;  /* Naranja Llamativo Intenso (Ginger) */
+    --secondary-peach: #ffa07a; /* Melocotón Vibrante */
+    --accent-yellow: #ffd700;   /* Amarillo Buttery (Crema/Mantequilla) */
+    --bg-body: #fff9f2;        /* Crema Muy Cálido (Base) */
+    --bg-container: rgba(255, 255, 255, 0.9); /* Cristal Claro */
+    --text-dark: #4e342e;      /* Marrón Chocolate Profundo (Para contraste cálido) */
+    --text-muted: #8d6e63;      /* Marrón Café Tenue */
+    --border: rgba(255, 140, 0, 0.2); /* Borde Naranja Suave */
+    --success: #66bb6a;        /* Verde Menta Brillante (Para éxito) */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at center, var(--bg-body) 0%, #fff 100%);
+    color: var(--text-dark);
+    font-family: 'Inter', sans-serif; /* Tipografía Sencilla */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-wrapper {
+    width: 90%;
+    max-width: 1100px;
+    padding: 20px;
+}
+
+.glass-container, .card, .vendedor-tag, .total-bar {
+    background: var(--bg-container);
+    backdrop-filter: blur(15px);
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(78, 52, 46, 0.08); /* Sombra marrón cálido */
+    border: 1px solid var(--border);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+.logo span { color: var(--primary-orange); font-weight: 700; } /* Naranja Llamativo */
+
+.vendedor-tag {
+    font-size: 0.85rem;
+    background: rgba(255, 215, 0, 0.2); /* Amarillo Tenue */
+    color: var(--text-dark);
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-yellow);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.03);
+}
+
+.status-msg {
+    background: rgba(102, 187, 106, 0.1); /* Verde Tenue */
+    color: #4a4a4a;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 25px;
+    border: 1px solid var(--success);
+    font-weight: 600;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 40px;
+}
+
+.card {
+    background: rgba(255, 249, 240, 0.6); /* Fondo Crema Suave */
+    padding: 30px;
+    border-radius: 20px;
+}
+
+h2 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--primary-orange); /* Línea Naranja Llamativa */
+    padding-bottom: 12px;
+    display: inline-block;
+}
+
+.input-group { margin-bottom: 20px; }
+label { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+
+input, select {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--border);
+    padding: 15px;
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-size: 1rem;
+    box-sizing: border-box;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+select option {
+    color: #111; 
+    background-color: #fff; 
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-orange);
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+}
+
+.radio-options { display: flex; gap: 20px; margin-top: 10px; }
+.radio-label {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+.radio-label:hover { color: var(--primary-orange); }
+
+button {
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-peach) 100%);
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+    box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(255, 140, 0, 0.4);
+}
+
+/* Sección Comprobante */
+.invoice { display: flex; flex-direction: column; gap: 10px; }
+.invoice-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--border);
+}
+.invoice-item span { color: var(--text-muted); font-size: 0.9rem; }
+.invoice-item strong { color: var(--text-dark); }
+
+.total-bar {
+    background: rgba(255, 140, 0, 0.1); /* Naranja Tenue */
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 35px;
+    border: 2px solid var(--primary-orange); /* Borde Naranja Intenso */
+}
+.total-bar span { font-size: 0.85rem; text-transform: uppercase; color: var(--primary-orange); opacity: 0.9; }
+.total-bar h3 {
+    font-size: 3.2rem;
+    color: var(--text-dark);
+    margin: 10px 0 0 0;
+    text-shadow: 0 0 10px rgba(255, 140, 0, 0.1);
+}
+
+.empty-state { text-align: center; color: var(--text-muted); padding: 80px 0; }
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 25px;
+}
