@@ -1,20 +1,23 @@
 package com.ventas.app.model;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Producto {
+    private String id;
     private String cliente;
     private String nombre;
     private double precioBase;
     private int cantidad;
-    private String tipoVenta; // "Menor" o "Mayor"
+    private String tipoVenta;
+    private LocalDateTime fecha;
 
-    public Producto() {}
+    public Producto() {
+        this.id = UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        this.fecha = LocalDateTime.now();
+    }
 
-    // Lógica POO: El objeto determina el precio unitario final
     public double getPrecioFinalUnitario() {
-        if ("Mayor".equals(tipoVenta)) {
-            return precioBase * 0.80; // 20% de descuento automático
-        }
-        return precioBase;
+        return "Mayor".equals(tipoVenta) ? precioBase * 0.80 : precioBase;
     }
 
     public double calcularTotal() {
@@ -22,6 +25,7 @@ public class Producto {
     }
 
     // Getters y Setters
+    public String getId() { return id; }
     public String getCliente() { return cliente; }
     public void setCliente(String cliente) { this.cliente = cliente; }
     public String getNombre() { return nombre; }
@@ -32,4 +36,5 @@ public class Producto {
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
     public String getTipoVenta() { return tipoVenta; }
     public void setTipoVenta(String tipoVenta) { this.tipoVenta = tipoVenta; }
+    public LocalDateTime getFecha() { return fecha; }
 }

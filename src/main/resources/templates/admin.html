@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DDM | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+    <header class="admin-header">
+        <h2>📊 Dashboard Administrativo DDM</h2>
+        <a th:href="@{/admin/logout}" style="color: white; font-weight: bold;">Cerrar Sesión 🔒</a>
+    </header>
+    <main class="admin-container">
+        <div class="metrics-grid">
+            <div class="metric-box"><span>Ingresos</span><h2 th:text="'S/ ' + ${#numbers.formatDecimal(totalGlobal, 1, 2)}"></h2></div>
+            <div class="metric-box"><span>Ventas</span><h2 th:text="${historial.size()}"></h2></div>
+        </div>
+        <section class="table-section">
+            <h3>📜 Historial de Ventas</h3>
+            <table class="styled-table">
+                <thead><tr><th>ID</th><th>Cliente</th><th>Producto</th><th>Cant.</th><th>Total</th></tr></thead>
+                <tbody>
+                    <tr th:each="v : ${historial}">
+                        <td th:text="${v.id}"></td>
+                        <td th:text="${v.cliente}"></td>
+                        <td th:text="${v.nombre}"></td>
+                        <td th:text="${v.cantidad}"></td>
+                        <td class="total-text" th:text="'S/ ' + ${#numbers.formatDecimal(v.calcularTotal(), 1, 2)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="table-section">
+            <h3>📦 Stock Actual</h3>
+            <table class="styled-table">
+                <thead><tr><th>Producto</th><th>Disponible</th></tr></thead>
+                <tbody>
+                    <tr th:each="entry : ${stock}">
+                        <td th:text="${entry.key}"></td>
+                        <td th:text="${entry.value} + ' unidades'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

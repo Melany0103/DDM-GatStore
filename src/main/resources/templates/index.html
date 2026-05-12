@@ -2,94 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>DDM GAT STORE</title>
+    <title>DDM GAT STORE | Boutique</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="glass-container">
-        <header>
-            <div class="logo">🐱 DDM <span>GAT STORE</span></div>
-            <div class="vendedor-tag">Vendedor: Melany Del Castillo</div>
-        </header>
+    <nav class="top-nav">
+        <div class="logo">🐾 DDM <span>GAT STORE</span></div>
+        <a th:href="@{/admin}" class="btn-to-admin">⚙️ Acceso Administrador</a>
+    </nav>
 
-        <div th:if="${mensaje}" class="status-msg" th:text="${mensaje}"></div>
+    <header class="hero">
+        <h1>Lo mejor para tu michi 🐈</h1>
+        <p>Boutique especializada en accesorios de alta gama.</p>
+    </header>
 
-        <main class="content">
-            <section class="card form-box">
-                <h2>📝 Registro de Venta</h2>
-                <form th:action="@{/calcular}" th:object="${producto}" method="post">
-                    <div class="input-group">
-                        <label>Nombre del Cliente</label>
-                        <input type="text" th:field="*{cliente}" placeholder="Cliente completo" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Seleccionar Accesorio 🐱</label>
-                        <select th:field="*{nombre}" class="custom-select" required>
-                            <option value="" disabled selected>Seleccione un producto...</option>
-                            <option th:each="p : ${catalogo}" th:value="${p.key}" th:text="${p.key} + ' (S/ ' + ${p.value} + ')'"></option>
-                        </select>
-                    </div>
+    <main class="main-container">
+        <div th:if="${param.success}" class="alert-success">✅ ¡Venta registrada exitosamente!</div>
+        
+        <form th:action="@{/vender}" th:object="${producto}" method="post" class="form-card">
+            <h3>🛒 Nuevo Pedido</h3>
+            
+            <div class="input-group">
+                <label>Nombre del Cliente</label>
+                <input type="text" th:field="*{cliente}" placeholder="Nombre completo" required>
+            </div>
 
-                    <div class="input-group">
-                        <label>Modalidad de Venta</label>
-                        <div class="radio-options">
-                            <label class="radio-label">
-                                <input type="radio" th:field="*{tipoVenta}" value="Menor" checked> Unidad
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" th:field="*{tipoVenta}" value="Mayor"> Al por Mayor (-20%)
-                            </label>
-                        </div>
-                    </div>
+            <div class="input-group">
+                <label>Categoría y Producto</label>
+                <select name="prodInfo" required>
+                    <option value="" disabled selected>Seleccione un accesorio...</option>
+                    <optgroup th:each="cat : ${categorias}" th:label="${cat.key}">
+                        <option th:each="p : ${cat.value}" 
+                                th:value="${p.key + ':' + p.value}" 
+                                th:text="${p.key + ' - S/ ' + p.value}">
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
 
-                    <div class="input-group">
-                        <label>Cantidad</label>
-                        <input type="number" th:field="*{cantidad}" min="1" required>
-                    </div>
-
-                    <button type="submit" class="btn-shine">PROCESAR PEDIDO</button>
-                </form>
-            </section>
-
-            <section class="card result-box">
-                <h2>📊 Resumen de Operación</h2>
-                <div th:if="${total != null}" class="invoice">
-                    <div class="invoice-item">
-                        <span>Cliente:</span>
-                        <strong th:text="${producto.cliente}"></strong>
-                    </div>
-                    <div class="invoice-item">
-                        <span>Producto:</span>
-                        <strong th:text="${producto.nombre}"></strong>
-                    </div>
-                    <div class="invoice-item">
-                        <span>Modalidad:</span>
-                        <strong th:text="${producto.tipoVenta}"></strong>
-                    </div>
-                    <div class="invoice-item">
-                        <span>Precio Unit.:</span>
-                        <strong th:text="'S/ ' + ${#numbers.formatDecimal(precioUnitario, 1, 2)}"></strong>
-                    </div>
-                    <div class="invoice-item">
-                        <span>Cantidad:</span>
-                        <strong th:text="${producto.cantidad}"></strong>
-                    </div>
-                    <div class="total-bar">
-                        <span>TOTAL A PAGAR</span>
-                        <h3 th:text="'S/ ' + ${#numbers.formatDecimal(total, 1, 2)}"></h3>
-                    </div>
+            <div class="grid-form">
+                <div class="input-group">
+                    <label>Cantidad</label>
+                    <input type="number" th:field="*{cantidad}" min="1" value="1" required>
                 </div>
-                <div th:unless="${total != null}" class="empty-state">
-                    <p>Esperando datos de entrada...</p>
+                <div class="input-group">
+                    <label>Tipo de Venta</label>
+                    <select th:field="*{tipoVenta}">
+                        <option value="Menor">Unidad</option>
+                        <option value="Mayor">Mayorista (-20%)</option>
+                    </select>
                 </div>
-            </section>
-        </main>
+            </div>
 
-        <footer>
-            © 2026 DDM - Sistema de Gestión de Ventas Especializadas
-        </footer>
-    </div>
+            <button type="submit" class="btn-submit">FINALIZAR COMPRA</button>
+        </form>
+    </main>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DDM | Acceso</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body class="login-page">
+    <div class="login-card">
+        <div class="logo">🐾 DDM <span>GAT STORE</span></div>
+        <p>Ingrese la clave de administrador</p>
+        <form th:action="@{/admin/auth}" method="post">
+            <input type="password" name="password" placeholder="••••••••" required>
+            <button type="submit" class="btn-submit">ENTRAR AL PANEL</button>
+        </form>
+        <div th:if="${error}" style="color: red; margin-top: 15px;">Clave incorrecta</div>
+        <br><a th:href="@{/}" style="color: #888; text-decoration: none;">⬅ Volver</a>
+    </div>
+</body>
+</html>
